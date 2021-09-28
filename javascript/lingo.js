@@ -31,37 +31,43 @@ function eersteLetter() {
     document.getElementById("W1L1").innerHTML = "<h1></h1>" + randomwoord[0];
 }
 
-function woordPlaatsen(woord){
-     lettersinput = [];
-     lettersrandom = [];
-    
-    for (var i = 0; i < woord.length; i++) {
-        lettersinput[i] = woord[i];
-    }   
-    for(var i = 0; i < randomwoord.length; i++) {
-        lettersrandom[i] = randomwoord[i];
-    }
-    for(var i = 0; i < randomwoord.length; i++) {
-        lettersrandomCOPY[i] = randomwoord[i];
-    }
-    for(var i = 0; i < lettersinput.length; i++){
-        document.getElementById("W" + attempt + "L" +(i+1)).innerHTML="<h1></h1>"+ lettersinput[i];
-
-        if(lettersinput[i] == lettersrandom[i]){
-            document.getElementById("W" + attempt + "L" +(i+1)).style.backgroundColor="green";
-            lettersrandom[i] = null;
+function woordPlaatsen(woord){  
+    if(woord.length != 5) {
+        alert("Bij Lingo MOET je 5 letters invoeren. GAME OVER");
+        location.reload();
+    } else {
+        lettersinput = [];
+        lettersrandom = [];
+        
+        for (var i = 0; i < woord.length; i++) {
+            lettersinput[i] = woord[i];
+        }   
+        for(var i = 0; i < randomwoord.length; i++) {
+            lettersrandom[i] = randomwoord[i];
         }
+        for(var i = 0; i < randomwoord.length; i++) {
+            lettersrandomCOPY[i] = randomwoord[i];
+        }
+        for(var i = 0; i < lettersinput.length; i++){
+            document.getElementById("W" + attempt + "L" +(i+1)).innerHTML="<h1></h1>"+ lettersinput[i];
 
-    }
-    for(var i = 0; i < lettersinput.length; i++){
-        document.getElementById("W" + attempt + "L" +(i+1)).innerHTML="<h1></h1>"+ lettersinput[i];
-
-        if(lettersinput[i]==lettersrandom[i]){
-            document.getElementById("W" + attempt + "L" +(i+1)).style.backgroundColor="green";
-        }else if (lettersrandom.includes(lettersinput[i])){
-                document.getElementById("W" + attempt + "L" +(i+1)).style.backgroundColor="yellow";
-                document.getElementById("W" + attempt + "L" +(i+1)).style.borderRadius="50%";
+            if(lettersinput[i] == lettersrandom[i]){
+                document.getElementById("W" + attempt + "L" +(i+1)).style.backgroundColor="green";
+                lettersrandom[i] = null;
             }
+
+        }
+        for(var i = 0; i < lettersinput.length; i++){
+            document.getElementById("W" + attempt + "L" +(i+1)).innerHTML="<h1></h1>"+ lettersinput[i];
+
+            if(lettersinput[i]==lettersrandom[i]){
+                document.getElementById("W" + attempt + "L" +(i+1)).style.backgroundColor="green";
+            }else if (lettersrandom.includes(lettersinput[i])){
+                    document.getElementById("W" + attempt + "L" +(i+1)).style.backgroundColor="yellow";
+                    document.getElementById("W" + attempt + "L" +(i+1)).style.borderRadius="50%";
+                    document.getElementById("W" + attempt + "L" +(i+1)).style.color = "black";
+                }
+        }
     }
 }
 
