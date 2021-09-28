@@ -28,7 +28,7 @@ function randomWoord(){
 }
 
 function eersteLetter() {
-    document.getElementById("W1L1").innerHTML = "<h1></h1>" +   randomwoord[0];
+    document.getElementById("W1L1").innerHTML = "<h1></h1>" + randomwoord[0];
 }
 
 function woordPlaatsen(woord){
@@ -58,12 +58,9 @@ function woordPlaatsen(woord){
 
         if(lettersinput[i]==lettersrandom[i]){
             document.getElementById("W" + attempt + "L" +(i+1)).style.backgroundColor="green";
-        }
-
-            if(lettersrandom.includes(lettersinput[i])){
+        }else if (lettersrandom.includes(lettersinput[i])){
                 document.getElementById("W" + attempt + "L" +(i+1)).style.backgroundColor="yellow";
                 document.getElementById("W" + attempt + "L" +(i+1)).style.borderRadius="50%";
-
             }
     }
 }
