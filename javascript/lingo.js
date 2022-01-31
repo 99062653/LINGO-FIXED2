@@ -1,17 +1,16 @@
 import { words } from "../javascript/lingo-nl.js"
+var lettersinput, lettersrandom, lettersrandomCOPY = [];
+var attempts = 5, attempt = 0;
+var randomwoord;
+
 var container = document.getElementById("SpeelVeld"); 
 var knop = document.getElementById("knop");
 knop.onclick = function() { 
     checkWoord(document.getElementById("Input").value);
 }
-var randomwoord;
-var attempts = 5;
-var attempt = 0;
-var lettersinput = [];
-var lettersrandom = [];
-var lettersrandomCOPY = [];
 
-function maakBord(){
+function loadGame(){
+    randomwoord = words[Math.floor(Math.random() * words.length)];
     for(var l = 1; l <= 5; l++){
         for(var i = 1; i <= 5; i++){
             var blok = document.createElement("div");
@@ -19,15 +18,7 @@ function maakBord(){
             container.appendChild(blok);   
         }
     }
-}
-
-function randomWoord(){
-    randomwoord = words[Math.floor(Math.random() * words.length)];
     console.log(randomwoord);
-    eersteLetter();
-}
-
-function eersteLetter() {
     document.getElementById("W1L1").innerHTML = "<h1></h1>" + randomwoord[0];
 }
 
@@ -36,10 +27,9 @@ function woordPlaatsen(woord){
         alert("Bij Lingo MOET je 5 letters invoeren. GAME OVER");
         location.reload();
     } else {
-        lettersinput = [];
-        lettersrandom = [];
+        lettersinput = [], lettersrandom = [], lettersrandomCOPY = [];
         
-        for (var i = 0; i < woord.length; i++) {
+        for(var i = 0; i < woord.length; i++) {
             lettersinput[i] = woord[i];
         }   
         for(var i = 0; i < randomwoord.length; i++) {
@@ -48,45 +38,35 @@ function woordPlaatsen(woord){
         for(var i = 0; i < randomwoord.length; i++) {
             lettersrandomCOPY[i] = randomwoord[i];
         }
+        console.log(lettersrandomCOPY)
         for(var i = 0; i < lettersinput.length; i++){
             document.getElementById("W" + attempt + "L" +(i+1)).innerHTML="<h1></h1>"+ lettersinput[i];
 
             if(lettersinput[i] == lettersrandom[i]){
                 document.getElementById("W" + attempt + "L" +(i+1)).style.backgroundColor="green";
                 lettersrandom[i] = null;
+            } else if(lettersrandom.includes(lettersinput[i])){
+                document.getElementById("W" + attempt + "L" +(i+1)).style.backgroundColor="yellow";
+                document.getElementById("W" + attempt + "L" +(i+1)).style.borderRadius="50%";
+                document.getElementById("W" + attempt + "L" +(i+1)).style.color = "black";
             }
-
-        }
-        for(var i = 0; i < lettersinput.length; i++){
-            document.getElementById("W" + attempt + "L" +(i+1)).innerHTML="<h1></h1>"+ lettersinput[i];
-
-            if(lettersinput[i]==lettersrandom[i]){
-                document.getElementById("W" + attempt + "L" +(i+1)).style.backgroundColor="green";
-            }else if (lettersrandom.includes(lettersinput[i])){
-                    document.getElementById("W" + attempt + "L" +(i+1)).style.backgroundColor="yellow";
-                    document.getElementById("W" + attempt + "L" +(i+1)).style.borderRadius="50%";
-                    document.getElementById("W" + attempt + "L" +(i+1)).style.color = "black";
-                }
         }
     }
 }
-
-
 
 function checkWoord(woord) {
     attempt++
-    woordPlaatsen(woord);
-    document.getElementById("W"+ attempt + "L1").innerHTML = "<h1></h1>" + randomwoord[0];
-    if(attempt >= attempts) {
-        alert("Helaas, je hebt verloren.");
-        location.reload();
-    }
+
     if(woord == randomwoord){
         alert("Je hebt gewonnen!");
         location.reload();
+    } else if(attempt >= attempts) {
+        alert("Helaas, je hebt verloren.");
+        location.reload();
     }
-    console.log(attempt);
+
+    woordPlaatsen(woord);
+    document.getElementById("W"+ attempt + "L1").innerHTML = "<h1></h1>" + randomwoord[0];
 }
 
-maakBord();
-randomWoord();
+loadGame();
