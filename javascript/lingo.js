@@ -35,21 +35,23 @@ function woordPlaatsen(woord){
         for(var i = 0; i < randomwoord.length; i++) {
             lettersrandom[i] = randomwoord[i];
         }
-        for(var i = 0; i < randomwoord.length; i++) {
-            lettersrandomCOPY[i] = randomwoord[i];
-        }
-        console.log(lettersrandomCOPY)
+
         for(var i = 0; i < lettersinput.length; i++){
             document.getElementById("W" + attempt + "L" +(i+1)).innerHTML="<h1></h1>"+ lettersinput[i];
 
             if(lettersinput[i] == lettersrandom[i]){
                 document.getElementById("W" + attempt + "L" +(i+1)).style.backgroundColor="green";
+
                 lettersrandom[i] = null;
             } else if(lettersrandom.includes(lettersinput[i])){
                 document.getElementById("W" + attempt + "L" +(i+1)).style.backgroundColor="yellow";
                 document.getElementById("W" + attempt + "L" +(i+1)).style.borderRadius="50%";
                 document.getElementById("W" + attempt + "L" +(i+1)).style.color = "black";
+
+                var index = lettersrandom.indexOf(lettersinput[i]);
+                lettersrandom[index] = null;
             }
+            console.log(lettersrandom)
         }
     }
 }
